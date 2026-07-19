@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Outfit", sans-serif;
   background-color: #0f1115;
@@ -25,6 +29,11 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.container {
+  width: min(1200px, 90%);
+  margin: 0 auto;
 }
 
 /* Navbar */
@@ -60,13 +69,31 @@ img {
 }
 
 .navbar nav ul li a {
-  font-weight: 500;
-  font-size: 16px;
-  transition: color 0.3s ease;
+  position: relative;
+  transition: color .3s ease;
 }
 
 .navbar nav ul li a:hover {
   color: #ff007f;
+}
+
+.navbar nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #ff007f;
+  transition: width .3s ease;
+}
+
+.navbar nav ul li a:hover::after {
+  width: 100%;
+}
+
+section {
+  scroll-margin-top: 90px;
 }
 
 /* Hero Section */
@@ -74,10 +101,9 @@ img {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-  text-align: center;
-  gap: 40px;
+  justify-content: space-between;
+  gap: 60px;
+  padding: 100px 20px;
 }
 
 .hero-img img {
@@ -85,12 +111,19 @@ img {
   border-radius: 50%;
   border: 4px solid #ff007f;
   box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.hero-img img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(255, 0, 127, 0.6);
 }
 
 .hero-text h1 {
-  font-size: 32px;
-  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.2;
   margin-bottom: 20px;
+  max-width: 650px;
 }
 
 .hero-text .highlight {
@@ -102,22 +135,33 @@ img {
 }
 
 .hero-text .description {
-  font-size: 16px;
-  color: #cccccc;
-  max-width: 600px;
-  margin: 0 auto;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #b3b3b3;
+  max-width: 650px;
+  margin-bottom: 30px;
+}
+
+.hero-text .socials {
+  display: flex;
+  gap: 18px;
+  margin-top: 25px;
 }
 
 .hero-text .socials a {
-  margin: 0 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #16181d;
+  border-radius: 50%;
   font-size: 20px;
-  color: #ffffff;
-  transition: color 0.3s ease;
+  transition: all .3s ease;
 }
 
 .hero-text .socials a:hover {
-  color: #ff007f;
+  background: #ff007f;
+  transform: translateY(-4px);
 }
 
 /* Section Titles */
@@ -155,7 +199,7 @@ img {
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .service-card:hover {
@@ -196,7 +240,7 @@ img {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .portfolio-card:hover {
@@ -206,7 +250,13 @@ img {
 
 .portfolio-card img {
   width: 100%;
-  display: block;
+  height: 220px;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.05);
 }
 
 .portfolio-info {
@@ -239,6 +289,9 @@ img {
 }
 
 .resume-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #16181d;
   padding: 30px;
   border-radius: 12px;
@@ -290,7 +343,9 @@ img {
 
 .skill {
   background-color: #0f1115;
-  padding: 10px 18px;
+  padding: 12px 20px;
+  font-weight: 600;
+  letter-spacing: .5px;
   border-radius: 20px;
   font-size: 14px;
   color: #ffffff;
@@ -321,56 +376,129 @@ img {
 
 .contact-form input,
 .contact-form textarea {
-  padding: 12px;
-  background-color: #1a1c22;
+  padding: 15px;
+  font-size: 16px;
+  background: #0f1115;
   border: 1px solid #333;
-  border-radius: 6px;
-  color: #fff;
+  border-radius: 8px;
+  color: white;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #ff007f;
+  box-shadow: 0 0 0 3px rgba(255, 0, 127, 0.2);
 }
 
 .contact-form button {
-  padding: 12px;
-  background-color: #ff007f;
-  color: #fff;
-  font-weight: bold;
+  padding: 15px;
+  background: #ff007f;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: .3s;
 }
 
 .contact-form button:hover {
-  background-color: #e60073;
+  background: #e60073;
+  transform: translateY(-2px);
 }
 
+.contact-form button:active {
+  transform: translateY(0);
+}
 
 /* Footer */
 .footer {
   text-align: center;
   padding: 2rem;
   background-color: #111;
-  color: #aaa;
+  color: #888;
+  border-top: 1px solid #222;
   font-size: 0.9rem;
 }
 
+.hero,
+.services-section,
+.portfolio-section,
+.resume-section,
+.contact-section {
+  animation: fadeUp .8s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Responsive */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .navbar nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .hero-text .description {
+    margin: 0 auto 30px;
+  }
+
+  .hero-text .socials {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 769px) {
   .hero {
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     text-align: left;
-    gap: 80px;
-    padding: 100px 40px;
+    padding: 120px 20px;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero-img {
+    flex: 0 0 350px;
   }
 
   .hero-img img {
     width: 350px;
   }
+}
 
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
 
